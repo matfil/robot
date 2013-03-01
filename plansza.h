@@ -4,13 +4,14 @@
 
 #include <iostream>
 #include <fstream>
+#include "pole.h"
 
 class plansza
 {
 private:
 	int xmax;
 	int ymax;
-	char mapa[70][50];
+	pole mapa[70][50];
 public:
 	plansza(ifstream file);
 	plansza(char tab[70][50]);
