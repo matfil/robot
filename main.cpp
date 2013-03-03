@@ -16,12 +16,17 @@ int main()
 	cin >> a;
 	cout << "\033[2J\033[1;1H";//clearscreen!!!
 	cin >> a;
-	
+
 	string filename;
 	cin >> filename;
 	cout << filename.c_str() << endl;
-	ifstream file;
-	file.open(filename.c_str(),ifstream::in);// otworzenie pliku do czytania
-	
+	plansza* mapka;
+	mapka = new plansza(filename);
+
+	mapka->show();
+
+    plansza nowa;
+	nowa = *mapka+*mapka;
+	nowa.show();
 	return 0;
 }

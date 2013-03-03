@@ -5,8 +5,15 @@
 #include <string>
 
 // ******** konstruktory ********
-plansza::plansza(std::ifstream file)
+plansza::plansza()
 {
+
+}
+
+plansza::plansza(std::string filename)
+{
+    std::ifstream file;
+    file.open(filename.c_str(),std::ifstream::in);
 	int i;
 	std::string line;//linia zczytywanego tekstu z pliku
 	std::string help;//pomocniczy
@@ -38,10 +45,15 @@ plansza::plansza(std::ifstream file)
 
 	std::cout << this->xmax << this->ymax << std::endl;
 
-	while(file >> line)
+	for(i=0;file >> line && i < this->ymax;i++)
 	{
+	    for(int j=0;j < this->xmax;j++)
+	    {
+            this->mapa[j][i].type=line[j];
+	    }
 		std::cout << line << std::endl;
 	}
+	file.close();
 }//plansza::plansza(ifstream file)
 
 plansza::plansza(pole tab[70][50])
@@ -57,5 +69,30 @@ void plansza::show()
 	{
 		std::cout << mapa[j][i].type;
 	}
+	std::cout << std::endl;
 	}
 }//void plansza::show()
+
+
+// ******** operatory ********
+plansza operator+ (plansza a, plansza b)
+{
+    plansza nowa;
+    nowa.xmax = a.xmax + b.xmax -2;
+    nowa.ymax = a.ymax > b.ymax ? a.ymax : b.ymax;
+    for(int i = 0; i < a.ymax; i++)//przepisanie pierwszej mapy
+    {
+        for (int j = 0; j < a.xmax; j++)
+        {
+            nowa.mapa[j][i] = a.mapa[j][i];
+        }
+    }
+    for(int i = 0; i < b.ymax; i++)//przepisanie drugiej mapy z nadpisaniem ostatniej kolumny
+    {
+        for (int j = 1; j < b.xmax; j++)
+        {
+            nowa.mapa[j+a.xmax-2][i] = b.mapa[j][i];
+        }
+    }
+    return nowa;
+}
