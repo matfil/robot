@@ -13,7 +13,8 @@ private:
 	int ymax;
 	pole mapa[70][50];
 public:
-	plansza(ifstream file);
-	plansza(char tab[70][50]);
+	plansza(std::ifstream file);
+	plansza(pole tab[70][50]);
+	void show();
 };
 #endif

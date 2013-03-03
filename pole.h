@@ -1,9 +1,12 @@
 //klasa pole
 #ifndef POLE_H
 #define POLE_H
+#include <string>
 
 class pole
 {
+public:
 	char type;
-	string way;
-}
+	std::string way;
+};
+#endif
