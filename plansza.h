@@ -15,10 +15,11 @@ public:
 
     plansza();
 	plansza(std::string filename);
-	plansza(pole tab[70][50]);
 	void show();
 
 };
 
 plansza operator+ (plansza a, plansza b);
+plansza operator* (plansza a, plansza b);
+
 #endif

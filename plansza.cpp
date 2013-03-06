@@ -1,13 +1,22 @@
 //Przechowywanie planszy projekt 1
 #include "plansza.h"
 #include "pole.h"
+
 #include <iostream>
 #include <string>
 
 // ******** konstruktory ********
 plansza::plansza()
 {
-
+    this->xmax=0;
+    this->ymax=0;
+    for(int i = 0; i<70;i++)
+    {
+        for(int j = 0; j<50;j++)
+        {
+            this->mapa[i][j].type=' ';
+        }
+    }
 }
 
 plansza::plansza(std::string filename)
@@ -22,7 +31,7 @@ plansza::plansza(std::string filename)
 	{
 		if (line[i]>47 && line[i]<58)
 		{
-		help.push_back(line[i]);
+            help.push_back(line[i]);
 		}
 		else
 		break;
@@ -51,14 +60,10 @@ plansza::plansza(std::string filename)
 	    {
             this->mapa[j][i].type=line[j];
 	    }
-		std::cout << line << std::endl;
+		//std::cout << line << std::endl;
 	}
 	file.close();
 }//plansza::plansza(ifstream file)
-
-plansza::plansza(pole tab[70][50])
-{
-}//plansza::plansza(pole tab[70][50])
 
 // ******** metody ********
 void plansza::show()
@@ -94,5 +99,37 @@ plansza operator+ (plansza a, plansza b)
             nowa.mapa[j+a.xmax-2][i] = b.mapa[j][i];
         }
     }
+    return nowa;
+}
+
+plansza operator* (plansza a, plansza b)
+{
+    int i,j;
+    plansza nowa;
+    nowa.xmax = a.xmax < b.xmax ? a.xmax : b.xmax;
+    nowa.ymax = a.ymax < b.ymax ? a.ymax : b.ymax;
+    for(i=0;i<nowa.ymax;i++)
+    {
+        for(j=0;j<nowa.xmax;j++)
+        {
+            if (a.mapa[j][i].type==b.mapa[j][i].type)
+            {nowa.mapa[j][i].type=a.mapa[j][i].type;}//jak są równe zostaje to samo
+            else
+            {nowa.mapa[j][i].type='.';}//jak nie to ścieżka
+            if (a.mapa[j][i].type==' '||b.mapa[j][i].type==' ')//jak było puste zostaje puste
+            {nowa.mapa[j][i].type=' ';}
+        }
+    }
+    for(i=0;i<nowa.xmax;i++)
+    {
+        nowa.mapa[i][0].type='*';
+        nowa.mapa[i][nowa.ymax-1].type='*';
+    }
+    for(i=0;i<nowa.ymax;i++)
+    {
+        nowa.mapa[0][i].type='*';
+        nowa.mapa[nowa.xmax-1][i].type='*';
+    }
+
     return nowa;
 }
