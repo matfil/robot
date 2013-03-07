@@ -8,12 +8,13 @@ enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy pos w klas
 
 class robot
 {
-  public:
+private:
   int pos[2];//aktualna pozycja robota
   int target[3];//pozycja celu i to czy został ustawiony
   bool fl;
   plansza* mapka;// wskaźnik do świata, w którym aktualnie porusza się robot
 
+public:
     //******** Konstruktor ********
   robot(plansza* mapa);
 

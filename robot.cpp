@@ -24,10 +24,27 @@ robot::robot(plansza* mapa)
                 break;
             }
         }
-        if (isset == 1)
+        if (isset )
         {
             break;
         }
+    }
+}
+
+void robot::ruch (int c);
+{
+    switch
+    {
+        case ARROW_UP:
+            if ()
+        break;
+        case ARROW_DOWN:
+        break;
+        case ARROW_RIGHT:
+        break;
+        case ARROW_LEFT:
+        break;
+
     }
 }
 
@@ -37,5 +54,6 @@ void robot::flag ()
     {
         this->target[X]=this->pos[X];
         this->target[Y]=this->pos[Y];
+        this->target[2]==1;
     }
 }

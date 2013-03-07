@@ -10,9 +10,9 @@ plansza::plansza()
 {
     xmax=0;
     ymax=0;
-    for(int i = 0; i<70;i++)
+    for(int i = 0; i<MAX_TERMINAL_X;i++)
     {
-        for(int j = 0; j<50;j++)
+        for(int j = 0; j<MAX_TERMINAL_Y;j++)
         {
             this->mapa[i][j].type=' ';
         }
@@ -41,14 +41,14 @@ plansza::plansza(std::string filename)
 
 	for (; i<(int)line.size(); i++)//wpisanie (i;;)tu i powoduje plucie warningiem poniewać to nic nie zmienia, ale pokazuje że i jest używane dalej od tej samej wartości
 	{
-		if (line[i]>47 && line[i]<58)
+		if (line[i]>'/' && line[i]<':')// '/' 1 poniżej 0, ':' 1 powyżej 9 (ASCII)
             help.push_back(line[i]);
 		else
             break;
 	}
 	this->ymax = std::stoi (help,&sz,10);
 
-	std::cout << this->xmax << this->ymax << std::endl;
+	std::cout << this->xmax <<" x "<< this->ymax << std::endl;
 
 	for(i=0;file >> line && i < this->ymax;i++)
 	{
@@ -62,7 +62,7 @@ plansza::plansza(std::string filename)
 }//plansza::plansza(ifstream file)
 
 // ******** metody ********
-void plansza::show()
+void plansza::show() const
 {
 	for (int i = 0;i < this->ymax;i++)//przejście po wierszach (oś y)
 	{
@@ -75,17 +75,17 @@ void plansza::show()
 }//void plansza::show()
 
 
-int plansza::width()
+int plansza::width() const
 {
     return xmax;
 }
 
-int plansza::height()
+int plansza::height() const
 {
     return ymax;
 }
 
-char plansza::getpoletype(int x, int y)
+char plansza::getpoletype(int x, int y) const
 {
     return mapa[x][y].type;
 }
@@ -97,7 +97,7 @@ void plansza::changepoletype(int x, int y, char c)
 
 
 // ******** operatory ********
-plansza plansza::operator+ (const plansza &b)
+plansza plansza::operator+ (const plansza &b) const
 {
     plansza nowa;
     nowa.xmax = this->xmax + b.xmax -2;
@@ -119,7 +119,7 @@ plansza plansza::operator+ (const plansza &b)
     return nowa;
 }
 
-plansza plansza::operator* (const plansza &b)
+plansza plansza::operator* (const plansza &b) const
 {
     int i,j;
     plansza nowa;
