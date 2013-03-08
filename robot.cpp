@@ -1,5 +1,8 @@
 #include "robot.h"
 #include "plansza.h"
+#include <iostream>
+
+
 
 robot::robot(plansza* mapa)
 {
@@ -31,19 +34,95 @@ robot::robot(plansza* mapa)
     }
 }
 
-void robot::ruch (int c);
+void robot::position() const
 {
-    switch
+    std::cout << pos[X] << " " << pos[Y] <<std::endl;
+}
+
+void robot::ruch (int c)
+{
+    static const int ARROW_UP = 119;
+    static const int ARROW_DOWN = 115;
+    static const int ARROW_RIGHT = 100;
+    static const int ARROW_LEFT = 97;
+    switch(c)
     {
         case ARROW_UP:
-            if ()
-        break;
+            if (mapka->getpoletype(pos[X],pos[Y]-1) != '*')
+            {
+                if (mapka->getpoletype(pos[X],pos[Y]-1) == 'x')
+                {
+                    mapka->changepoletype(pos[X],pos[Y],'.');
+                    fl=1;
+                }
+                else
+                {
+                    mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
+                    fl=0;
+                }
+                mapka->changepoletype(pos[X],pos[Y]-1,'r');
+                pos[Y]--;
+            }
+
+        break;//ARROW_UP
+
         case ARROW_DOWN:
-        break;
+            if (mapka->getpoletype(pos[X],pos[Y]+1)!='*')
+            {
+                if (mapka->getpoletype(pos[X],pos[Y]+1)=='x')
+                {
+                    mapka->changepoletype(pos[X],pos[Y],'.');
+                    fl=1;
+                }
+                else
+                {
+                    mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
+                    fl=0;
+
+                }
+                mapka->changepoletype(pos[X],pos[Y]+1,'r');
+                pos[Y]++;
+            }
+
+        break;//ARROW_DOWN
+
         case ARROW_RIGHT:
-        break;
+            if (mapka->getpoletype(pos[X]+1,pos[Y])!='*')
+            {
+                if (mapka->getpoletype(pos[X]+1,pos[Y])=='x')
+                {
+                    mapka->changepoletype(pos[X],pos[Y],'.');
+                    fl=1;
+                }
+                else
+                {
+                    mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
+                    fl=0;
+                }
+                mapka->changepoletype(pos[X]+1,pos[Y],'r');
+                pos[X]++;
+            }
+
+        break;//ARROW_RIGHT
+
         case ARROW_LEFT:
-        break;
+            if (mapka->getpoletype(pos[X]-1,pos[Y])!='*')
+            {
+                if (mapka->getpoletype(pos[X]-1,pos[Y])=='x')
+                {
+                    mapka->changepoletype(pos[X],pos[Y],'.');
+                    fl=1;
+                }
+                else
+                {
+                    mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
+                    fl=0;
+                }
+                mapka->changepoletype(pos[X]-1,pos[Y],'r');
+                pos[X]--;
+            }
+
+        break; //ARROW_LEFT
 
     }
 }
@@ -54,6 +133,6 @@ void robot::flag ()
     {
         this->target[X]=this->pos[X];
         this->target[Y]=this->pos[Y];
-        this->target[2]==1;
+        this->target[2]=1;
     }
 }

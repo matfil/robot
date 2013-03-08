@@ -13,11 +13,6 @@
 
 #define CLEARSCREEN "\033[2J\033[1;1H"
 
-static const int ARROW_UP = 279165;
-static const int ARROW_DOWN = 279166;
-static const int ARROW_RIGHT = 279167;
-static const int ARROW_LEFT = 279168;
-
 using namespace std;
 
 int main()
@@ -78,8 +73,12 @@ int main()
 
    while (a!='+')
    {
+
        a = cin.get();
-       cout<<a;
+       cout<<CLEARSCREEN;
+       testowy.position();
+       testowy.ruch(a);
+       nowa2.show();
    }
 
 

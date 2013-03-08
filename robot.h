@@ -11,7 +11,7 @@ class robot
 private:
   int pos[2];//aktualna pozycja robota
   int target[3];//pozycja celu i to czy został ustawiony
-  bool fl;
+  bool fl;//czy robot stoi na fladze?
   plansza* mapka;// wskaźnik do świata, w którym aktualnie porusza się robot
 
 public:
@@ -20,6 +20,7 @@ public:
 
     //******** Metody ********
   void ruch (int c);
+  void position() const;
   void flag ();//zmienia fl na 1 by robot zchodząc ze swjego pola zostawił znak 'x'
 };
 #endif
