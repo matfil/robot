@@ -87,14 +87,32 @@ int plansza::height() const
 
 char plansza::getpoletype(int x, int y) const
 {
+    if(x<0||y<0)
+    return '*';
     return mapa[x][y].type;
 }
 
 void plansza::changepoletype(int x, int y, char c)
 {
+    if(x<=0&&y<=0)
     mapa[x][y].type = c;
 }
 
+std::string plansza::getpoleway(int x, int y) const
+{
+    if(x<0||y<0)
+    {
+        std::string ret;
+        return ret;
+    }
+    return mapa[x][y].way;
+}
+
+void plansza::setpoleway(int x, int y, std::string s)
+{
+    if(x<=0&&y<=0)
+    mapa[x][y].way = s;
+}
 
 // ******** operatory ********
 plansza plansza::operator+ (const plansza &b) const

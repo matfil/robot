@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "pole.h"
 
 class plansza
@@ -26,6 +27,8 @@ public:
     int height() const;
     char getpoletype(int x, int y) const;
     void changepoletype(int x, int y, char c);
+    std::string getpoleway(int x, int y) const;
+    void setpoleway(int x, int y, std::string s);
 
     plansza operator+ (const plansza &b) const;
     plansza operator* (const plansza &b) const;

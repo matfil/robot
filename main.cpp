@@ -10,6 +10,7 @@
 #include "pole.h"
 #include "plansza.h"
 #include "robot.h"
+#include "queue.h"
 
 #define CLEARSCREEN "\033[2J\033[1;1H"
 
@@ -18,6 +19,26 @@ using namespace std;
 int main()
 {
 
+
+    /*test site
+    queue test;
+
+    for (int i = 0;i<3;i++)
+    {
+        test.push(i,1);
+    }
+
+    test.show();
+
+    point xy;
+    for (int j = 0;j<3;j++)
+    {
+        xy = test.pop();
+        cout << xy.a;
+    }
+    char asd;
+    cin >> asd;
+    -------------- kolejka działa --------------------*/
 	cout << CLEARSCREEN;
 
 	string filename;
@@ -73,11 +94,10 @@ int main()
 
    while (a!='+')
    {
-
-       a = cin.get();
+       a=cin.get();
        cout<<CLEARSCREEN;
-       testowy.position();
        testowy.ruch(a);
+       testowy.position();
        nowa2.show();
    }
 

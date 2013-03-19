@@ -1,5 +1,6 @@
 #include "robot.h"
 #include "plansza.h"
+#include "queue.h"
 #include <iostream>
 
 
@@ -7,10 +8,10 @@
 robot::robot(plansza* mapa)
 {
     this->target[2]=0;
-                    pos[X]=0;
+    pos[X]=0;
     pos[Y]=0;
     fl=0;
-    int isset;
+    bool isset;
     isset = 0;
     mapka = mapa;
     /*znajdź pierwsze wolne miejsce na robota*/
@@ -23,11 +24,11 @@ robot::robot(plansza* mapa)
                 mapka->changepoletype(i,j,'r');
                 pos[X]=i;
                 pos[Y]=j;
-                isset = 1;
+                isset = true;
                 break;
             }
         }
-        if (isset )
+        if (isset)
         {
             break;
         }
@@ -45,8 +46,16 @@ void robot::ruch (int c)
     static const int ARROW_DOWN = 115;
     static const int ARROW_RIGHT = 100;
     static const int ARROW_LEFT = 97;
+
+    if (c == 'x')
+    {
+        flag();
+        return;
+    }
+
     switch(c)
     {
+
         case ARROW_UP:
             if (mapka->getpoletype(pos[X],pos[Y]-1) != '*')
             {
@@ -131,8 +140,92 @@ void robot::flag ()
 {
     if (this->target[2]==0)
     {
-        this->target[X]=this->pos[X];
-        this->target[Y]=this->pos[Y];
-        this->target[2]=1;
+        target[X]=pos[X];
+        target[Y]=pos[Y];
+        target[2]=1;
+        fl=1;
     }
+}
+
+void robot::startfinder()
+{
+    std::string way;
+    if( mapka->getpoletype(pos[X],pos[Y]-1) != '*' )
+    {
+        way.clear();
+        way.push_back('w');
+        kolejka.push(pos[X],pos[Y]-1,way);
+    }//up
+    if( mapka->getpoletype(pos[X],pos[Y]+1) != '*' )
+    {
+        way.clear();
+        way.push_back('s');
+        kolejka.push(pos[X],pos[Y]+1,way);
+    }//down
+    if( mapka->getpoletype(pos[X]-1,pos[Y]) != '*' )
+    {
+        way.clear();
+        way.push_back('a');
+        kolejka.push(pos[X]-1,pos[Y],way);
+
+    }//left
+    if( mapka->getpoletype(pos[X]+1,pos[Y]) != '*' )
+    {
+        way.clear();
+        way.push_back('d');
+        kolejka.push(pos[X]+1,pos[Y],way);
+    }//right
+
+}
+
+
+void robot::pathfinder()
+{
+
+    if ( kolejka.isempty() )
+        return;
+
+    point current;
+    std::string help;
+    current = kolejka.pop();
+    mapka->setpoleway(current.a,current.b,current.way);//pole zyskało najkrótszą ścieżkę do siebie
+
+    if ( mapka->getpoletype(current.a,current.b) == 'x')
+        return;
+
+    if( mapka->getpoletype(current.a,current.b-1) != '*' && current.a!=pos[X] && current.b-1 !=pos[Y])
+    {
+        help = current.way;
+        help.push_back('w');
+
+        if( (mapka->getpoleway(current.a,current.b-1)).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+            kolejka.push(current.a,current.b-1,help);
+    }//up
+    if( mapka->getpoletype(current.a,current.b+1) != '*' && current.a!=pos[X] && current.b+1 !=pos[Y] )
+    {
+        help = current.way;
+        help.push_back('s');
+
+        if( mapka->getpoleway(current.a,current.b+1).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+            kolejka.push(current.a,current.b+1,help);
+    }//down
+    if( mapka->getpoletype(current.a-1,current.b) != '*' && current.a -1 != pos[X] && current.b !=pos[Y] )
+    {
+        help = current.way;
+        help.push_back('a');
+
+        if( mapka->getpoleway(current.a-1,current.b).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+            kolejka.push(current.a-1,current.b,help);
+
+    }//left
+    if( mapka->getpoletype(current.a+1,current.b) != '*' && current.a +1 != pos[X] && current.b !=pos[Y] )
+    {
+        help = current.way;
+        help.push_back('d');
+
+        if( mapka->getpoleway(current.a+1,current.b).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+            kolejka.push(current.a+1,current.b,help);
+    }//right
+
+    this->pathfinder();
 }
