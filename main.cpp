@@ -95,10 +95,16 @@ int main()
    while (a!='+')
    {
        a=cin.get();
+
+       if (a == 'r')//'r' jak return
+        testowy.startfinder();
+
        cout<<CLEARSCREEN;
        testowy.ruch(a);
        testowy.position();
        nowa2.show();
+
+       cout << endl << testowy.waytodest();
    }
 
 

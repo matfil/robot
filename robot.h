@@ -26,5 +26,6 @@ public:
   void position() const;
   void flag();//zmienia fl na 1 by robot zchodząc ze swjego pola zostawił znak 'x'
   void startfinder();
+  std::string waytodest() const;
 };
 #endif

@@ -174,8 +174,10 @@ void robot::startfinder()
         way.clear();
         way.push_back('d');
         kolejka.push(pos[X]+1,pos[Y],way);
-    }//right
+    }//
 
+
+    this->pathfinder();
 }
 
 
@@ -228,4 +230,10 @@ void robot::pathfinder()
     }//right
 
     this->pathfinder();
+}
+
+
+std::string robot::waytodest() const
+{
+    return mapka->getpoleway(target[X],target[Y]);
 }
