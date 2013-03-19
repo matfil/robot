@@ -96,15 +96,17 @@ int main()
    {
        a=cin.get();
 
-       if (a == 'r')//'r' jak return
-        testowy.startfinder();
 
        cout<<CLEARSCREEN;
+
+       if (a == 'r')//'r' jak return
+        testowy.startfinder();
+       cout << endl << testowy.waytodest();
+
+
        testowy.ruch(a);
        testowy.position();
        nowa2.show();
-
-       cout << endl << testowy.waytodest();
    }
 
 

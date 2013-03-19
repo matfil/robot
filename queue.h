@@ -11,30 +11,30 @@ class point
 };
 
 
-class queue
+class queue//kolejka typu FIFO
 {
 
-    class insider
+    class insider // lista jednokierunkowa
     {
         public:
         int pos[2];
         std::string way;
-        insider* next;
+        insider* next;// wskaźnik na kolejny element listy
 
         insider(int, int, std::string);
     };
 
-    insider* first;
-    insider* last;
+    insider* first;//pierwszy element kolejki
+    insider* last;//ostatni
 
     public:
 
-    queue();
-    void push(int, int, std::string);
-    point pop();
-    bool isempty() const;
+    queue();//tworzy pustą kolejkę
+    void push(int, int, std::string);//wstawia element
+    point pop();//usuwa element
+    bool isempty() const;//sprawdza czy kolejka jest pusta
 
-    void show() const;
+    void show() const; // pokazuje zawartość kolejki (element debuga)
 
 };
 

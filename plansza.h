@@ -29,6 +29,10 @@ public:
     void changepoletype(int x, int y, char c);
     std::string getpoleway(int x, int y) const;
     void setpoleway(int x, int y, std::string s);
+    bool iswhite(int, int) const;
+    bool isgray(int, int) const;
+    bool isblack(int, int) const;
+    void setpolecolor(int x, int y, int c);
 
     plansza operator+ (const plansza &b) const;
     plansza operator* (const plansza &b) const;

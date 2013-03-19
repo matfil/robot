@@ -12,6 +12,7 @@ queue::insider::insider(int a, int b,std::string w)
     next = nullptr;
 }
 
+
 queue::queue()
 {
     first= nullptr;

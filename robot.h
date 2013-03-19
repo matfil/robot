@@ -10,12 +10,11 @@ enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy pos w klas
 class robot
 {
 private:
-  queue kolejka;// potrzebne dla pathfindera
+  queue kolejka;
   int pos[2];//aktualna pozycja robota
   int target[3];//pozycja celu i to czy został ustawiony
   bool fl;//czy robot stoi na fladze?
   plansza* mapka;// wskaźnik do świata, w którym aktualnie porusza się robot
-  void pathfinder(); //metoda znajdująca najkrótszą trasę do celu 'x'
 
 public:
     //******** Konstruktor ********

@@ -15,6 +15,7 @@ plansza::plansza()
         for(int j = 0; j<MAX_TERMINAL_Y;j++)
         {
             this->mapa[i][j].type=' ';
+            this->mapa[i][j].color = WHITE;
         }
     }
 }
@@ -55,6 +56,7 @@ plansza::plansza(std::string filename)
 	    for(int j=0;j < this->xmax;j++)
 	    {
             this->mapa[j][i].type=line[j];
+            this->mapa[j][i].color = WHITE;
 	    }
 		//std::cout << line << std::endl;
 	}
@@ -97,7 +99,9 @@ char plansza::getpoletype(int x, int y) const
 void plansza::changepoletype(int x, int y, char c)
 {
     if(x>=0&&y>=0)
-    mapa[x][y].type = c;
+    {
+        mapa[x][y].type = c;
+    }
 }
 
 std::string plansza::getpoleway(int x, int y) const
@@ -138,6 +142,58 @@ plansza plansza::operator+ (const plansza &b) const
     }
     return nowa;
 }
+
+bool plansza::isblack(int x, int y) const
+{
+    if (x<0||y<0)
+        return true;
+
+    if (mapa[x][y].color == BLACK)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool plansza::isgray(int x, int y) const
+{
+    if (x<0||y<0)
+        return false;
+
+    if (mapa[x][y].color == GRAY)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool plansza::iswhite(int x, int y) const
+{
+    if (x<0||y<0)
+        return false;
+
+    if (mapa[x][y].color == WHITE)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void plansza::setpolecolor(int x, int y, int c)
+{
+    if(x>=0&&y>=0)
+    mapa[x][y].color = c;
+}
+
 
 plansza plansza::operator* (const plansza &b) const
 {

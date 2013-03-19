@@ -2,6 +2,7 @@
 #include "plansza.h"
 #include "queue.h"
 #include <iostream>
+#include <string>
 
 
 
@@ -147,25 +148,86 @@ void robot::flag ()
     }
 }
 
+
 void robot::startfinder()
 {
+    std::cout << "startfinder" << std::endl;
+
+    std::string way;
+    point current;
+
+    mapka->setpolecolor(pos[X],pos[Y],GRAY);
+    mapka->setpoleway(pos[X],pos[Y],way);
+    kolejka.push(pos[X],pos[Y],way);
+
+    while (kolejka.isempty() != true)
+    {
+        current = kolejka.pop();
+        if ( mapka->iswhite(current.a,current.b-1) && mapka->getpoletype(current.a,current.b-1) != '*' )
+        {
+            way=current.way;
+            way.push_back('w');
+            mapka->setpolecolor(current.a,current.b-1,GRAY);
+            mapka->setpoleway(current.a,current.b-1,way);
+            kolejka.push(current.a,current.b-1,way);
+        }//up 'w'
+        if ( mapka->iswhite(current.a,current.b+1) && mapka->getpoletype(current.a,current.b+1) != '*' )
+        {
+            way=current.way;
+            way.push_back('s');
+            mapka->setpolecolor(current.a,current.b+1,GRAY);
+            mapka->setpoleway(current.a,current.b+1,way);
+            kolejka.push(current.a,current.b+1,way);
+        }//down 's'
+        if ( mapka->iswhite(current.a-1,current.b) && mapka->getpoletype(current.a-1,current.b) != '*' )
+        {
+            way=current.way;
+            way.push_back('a');
+            mapka->setpolecolor(current.a-1,current.b,GRAY);
+            mapka->setpoleway(current.a-1,current.b,way);
+            kolejka.push(current.a-1,current.b,way);
+        }//left 'a'
+        if ( mapka->iswhite(current.a+1,current.b) && mapka->getpoletype(current.a+1,current.b) != '*')
+        {
+            way=current.way;
+            way.push_back('d');
+            mapka->setpolecolor(current.a+1,current.b,GRAY);
+            mapka->setpoleway(current.a+1,current.b,way);
+            kolejka.push(current.a+1,current.b,way);
+        }//right 'd'
+
+        kolejka.show();
+    }
+}
+
+
+
+/*
+void robot::startfinder()
+{
+        std::cout << "startfinder" << std::endl;
+
+    mapka->setpolecolor(pos[X],pos[Y],GRAY);
     std::string way;
     if( mapka->getpoletype(pos[X],pos[Y]-1) != '*' )
     {
         way.clear();
         way.push_back('w');
+        mapka->setpolecolor(pos[X],pos[Y]-1,GRAY);
         kolejka.push(pos[X],pos[Y]-1,way);
     }//up
     if( mapka->getpoletype(pos[X],pos[Y]+1) != '*' )
     {
         way.clear();
         way.push_back('s');
+        mapka->setpolecolor(pos[X],pos[Y]+1,GRAY);
         kolejka.push(pos[X],pos[Y]+1,way);
     }//down
     if( mapka->getpoletype(pos[X]-1,pos[Y]) != '*' )
     {
         way.clear();
         way.push_back('a');
+        mapka->setpolecolor(pos[X]-1,pos[Y],GRAY);
         kolejka.push(pos[X]-1,pos[Y],way);
 
     }//left
@@ -173,64 +235,82 @@ void robot::startfinder()
     {
         way.clear();
         way.push_back('d');
+        mapka->setpolecolor(pos[X]+1,pos[Y],GRAY);
         kolejka.push(pos[X]+1,pos[Y],way);
     }//
 
+    kolejka.show();
+    std::cout << "startfinder" << std::endl;
 
-    this->pathfinder();
-}
 
-
-void robot::pathfinder()
-{
-
-    if ( kolejka.isempty() )
-        return;
 
     point current;
     std::string help;
-    current = kolejka.pop();
-    mapka->setpoleway(current.a,current.b,current.way);//pole zyskało najkrótszą ścieżkę do siebie
+    while (!kolejka.isempty())
+    {
 
-    if ( mapka->getpoletype(current.a,current.b) == 'x')
+        std::cout << "pathfinder" << std::endl;
+        kolejka.show();
+
+        current = kolejka.pop();
+
+
+
+        if ( mapka->getpoletype(current.a,current.b) == 'x')
         return;
 
-    if( mapka->getpoletype(current.a,current.b-1) != '*' && current.a!=pos[X] && current.b-1 !=pos[Y])
-    {
-        help = current.way;
-        help.push_back('w');
-
-        if( (mapka->getpoleway(current.a,current.b-1)).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+        if( mapka->iswhite(current.a,current.b-1) && mapka->getpoletype(current.a,current.b-1) != '*' && current.a!=pos[X] && current.b-1 !=pos[Y])
+        {
+            help = current.way;
+            help.push_back('w');
+            mapka->setpolecolor(current.a,current.b-1,GRAY);
+            mapka->setpoleway(current.a,current.b-1,help);
             kolejka.push(current.a,current.b-1,help);
-    }//up
-    if( mapka->getpoletype(current.a,current.b+1) != '*' && current.a!=pos[X] && current.b+1 !=pos[Y] )
-    {
-        help = current.way;
-        help.push_back('s');
+        }//up
 
-        if( mapka->getpoleway(current.a,current.b+1).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+
+        if( mapka->iswhite(current.a,current.b+1) && mapka->getpoletype(current.a,current.b+1) != '*' && current.a!=pos[X] && current.b+1 !=pos[Y] )
+        {
+            help = current.way;
+            help.push_back('s');
+            mapka->setpolecolor(current.a,current.b+1,GRAY);
+            mapka->setpoleway(current.a,current.b+1,help);
             kolejka.push(current.a,current.b+1,help);
-    }//down
-    if( mapka->getpoletype(current.a-1,current.b) != '*' && current.a -1 != pos[X] && current.b !=pos[Y] )
-    {
-        help = current.way;
-        help.push_back('a');
 
-        if( mapka->getpoleway(current.a-1,current.b).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+        }//down
+
+
+        if( mapka->iswhite(current.a-1,current.b) && mapka->getpoletype(current.a-1,current.b) != '*' && current.a-1 != pos[X] && current.b !=pos[Y] )
+        {
+            help = current.way;
+            help.push_back('a');
+            mapka->setpolecolor(current.a-1,current.b,GRAY);
+            mapka->setpoleway(current.a-1,current.b,help);
             kolejka.push(current.a-1,current.b,help);
 
-    }//left
-    if( mapka->getpoletype(current.a+1,current.b) != '*' && current.a +1 != pos[X] && current.b !=pos[Y] )
-    {
-        help = current.way;
-        help.push_back('d');
 
-        if( mapka->getpoleway(current.a+1,current.b).size() > help.size() || mapka->getpoletype(current.a+1,current.b) != ' ' )
+        }//left
+
+
+        if( mapka->iswhite(current.a+1,current.b) && mapka->getpoletype(current.a+1,current.b) != '*' && current.a+1 != pos[X] && current.b !=pos[Y] )
+        {
+            help = current.way;
+            help.push_back('d');
+            mapka->setpolecolor(current.a+1,current.b,GRAY);
+            mapka->setpoleway(current.a+1,current.b,help);
             kolejka.push(current.a+1,current.b,help);
-    }//right
 
-    this->pathfinder();
+        }//right
+
+        mapka->setpolecolor(current.a,current.b,BLACK);
+    }
+
+
+
 }
+
+
+*/
 
 
 std::string robot::waytodest() const
