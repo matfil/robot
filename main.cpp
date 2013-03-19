@@ -17,11 +17,17 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 void delay(int seconds);
 
 int main()
+=======
+void delay(int seconds)
+>>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
 {
+    time_t start, current;
 
+<<<<<<< HEAD
     cout << CLEARSCREEN;
 
     string filename;
@@ -33,6 +39,33 @@ int main()
     cout << "podaj nazwę mapki:"<<std::endl;
     cin >> filename2;// druga mapka
 
+=======
+    time(&start);
+
+    do
+    {
+        time(&current);
+    }
+    while ((current - start) < seconds);
+}
+
+int main()
+{
+
+
+
+    cout << CLEARSCREEN;
+
+    string filename;
+    string filename2;
+
+    cout << "podaj nazwę mapki:"<<std::endl;
+    cin >> filename;
+
+    cout << "podaj nazwę mapki:"<<std::endl;
+    cin >> filename2;
+
+>>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
     plansza mapka (filename);
     plansza mapka2 (filename2);
 
@@ -74,6 +107,7 @@ int main()
     cout<<std::flush;
     int a;
     a = 0;
+<<<<<<< HEAD
 
     while (a!='+')
     {
@@ -113,6 +147,36 @@ int main()
     return 0;
 }
 
+=======
+
+    while (a!='+')
+    {
+        a=cin.get();
+
+
+        cout<<CLEARSCREEN;
+
+        if (a == 'r')//'r' jak return
+        {
+            testowy.startfinder();
+        }
+
+        testowy.ruch(a);
+        testowy.position();
+        nowa2.show();
+
+        if (a == 'g')
+        {
+            for (int iter = 0; iter < (int)(testowy.waytodest()).size(); iter++)
+            {
+                delay(1);
+                testowy.ruch((testowy.waytodest())[iter]);
+                cout<<CLEARSCREEN;
+                nowa2.show();
+            }
+        }
+    }
+>>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
 
 
 void delay(int seconds) //opóźniacz
@@ -121,9 +185,15 @@ void delay(int seconds) //opóźniacz
 
     time(&start);
 
+<<<<<<< HEAD
     do
     {
         time(&current);
     }
     while ((current - start) < seconds);
+=======
+    /* */
+//koniec
+    return 0;
+>>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
 }

@@ -85,12 +85,21 @@ void robot::ruch (int c)
         if (mapka->getpoletype(pos[X],pos[Y]+1)!='*')
         {
             if (mapka->getpoletype(pos[X],pos[Y]+1)=='x')
+<<<<<<< HEAD
             {
                 mapka->changepoletype(pos[X],pos[Y],'.');
                 fl=1;
             }
             else
             {
+=======
+            {
+                mapka->changepoletype(pos[X],pos[Y],'.');
+                fl=1;
+            }
+            else
+            {
+>>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
                 mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
                 fl=0;
 
