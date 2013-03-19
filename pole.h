@@ -8,9 +8,9 @@ enum kolor {WHITE, GRAY, BLACK};
 class pole
 {
 public:
-	char type;
-	std::string way;
-	int color;
+    char type;
+    std::string way;
+    int color;
 
 };
 #endif
