@@ -4,7 +4,7 @@
 
 class point
 {
-    public:
+public:
     int a;
     int b;
     std::string way;
@@ -16,7 +16,7 @@ class queue//kolejka typu FIFO
 
     class insider // lista jednokierunkowa
     {
-        public:
+    public:
         int pos[2];
         std::string way;
         insider* next;// wskaźnik na kolejny element listy
@@ -27,7 +27,7 @@ class queue//kolejka typu FIFO
     insider* first;//pierwszy element kolejki
     insider* last;//ostatni
 
-    public:
+public:
 
     queue();//tworzy pustą kolejkę
     void push(int, int, std::string);//wstawia element

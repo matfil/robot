@@ -42,7 +42,7 @@ point queue::pop()
     xy.b=-1;
 
     if (first == nullptr)
-    return xy;
+        return xy;
 
     xy.a = first->pos[X];
     xy.b = first->pos[Y];
@@ -59,7 +59,7 @@ void queue::show() const
     help = first;
     while(help != nullptr)
     {
-         std::cout << help->pos[X] << " " << help->pos[Y] << std::endl;
+        std::cout << help->pos[X] << " " << help->pos[Y] << std::endl;
         help = help->next;
 
 

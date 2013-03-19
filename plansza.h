@@ -15,20 +15,21 @@ private:
     static const int MAX_TERMINAL_Y = 50;
 
     int xmax;//maksymalna ilość niepustych znaczków w wierszu
-	int ymax;
-	pole mapa[MAX_TERMINAL_X][MAX_TERMINAL_Y];
+    int ymax;
+    pole mapa[MAX_TERMINAL_X][MAX_TERMINAL_Y];
 
 public:
 
     plansza();
-	plansza(std::string filename);
-	void show() const;
+    plansza(std::string filename);
+    void clearways();
+    void show() const;
     int width() const;
     int height() const;
     char getpoletype(int x, int y) const;
     void changepoletype(int x, int y, char c);
-    std::string getpoleway(int x, int y) const;
-    void setpoleway(int x, int y, std::string s);
+    std::string getpoleway(int, int) const;
+    void setpoleway(int, int, std::string);
     bool iswhite(int, int) const;
     bool isgray(int, int) const;
     bool isblack(int, int) const;
