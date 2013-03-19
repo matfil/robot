@@ -4,6 +4,7 @@
 #include "plansza.h"
 #include "queue.h"
 
+// klasa robot
 
 enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy pos w klasie robot
 

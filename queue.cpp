@@ -1,6 +1,8 @@
 #include <iostream>
 #include "queue.h"
 
+//implementacja kolejki FIFO
+
 static const int X = 0;
 static const int Y = 1;
 

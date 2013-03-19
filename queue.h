@@ -11,7 +11,7 @@ public:
 };
 
 
-class queue//kolejka typu FIFO
+class queue//kolejka typu FIFO deklaracje
 {
 
     class insider // lista jednokierunkowa

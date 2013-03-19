@@ -76,7 +76,7 @@ void plansza::clearways() // przywraca mapce stan początkowy, zeruje odległoś
     }
 }
 
-void plansza::show() const
+void plansza::show() const // zgodnie z nazwą pokazuje mapkę
 {
     for (int i = 0; i < this->ymax; i++) //przejście po wierszach (oś y)
     {

@@ -7,6 +7,8 @@
 #include <string>
 #include "pole.h"
 
+//klasa plansza
+
 class plansza
 {
 

@@ -115,7 +115,7 @@ int main()
 
 
 
-void delay(int seconds)
+void delay(int seconds) //opóźniacz
 {
     time_t start, current;
 

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-
+//implementacja obsługi robota
 
 robot::robot(plansza* mapa)
 {
