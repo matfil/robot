@@ -35,20 +35,12 @@ plansza::plansza(std::string filename)//wczytuje z pliku planszę
         else
             break;
     }
-    std::string::size_type sz;   // alias of size_t
-<<<<<<< HEAD
+    std::string::size_type sz; // alias of size_t
     this->xmax = std::stoi (help,&sz,10);//string to integer
     help.erase();
     i++;//przeskok na kolejną cyfrę zgodnie z ustalonym formatem pliku mapki.
 
     for (; i<(int)line.size(); i++)
-=======
-    this->xmax = std::stoi (help,&sz,10);
-    help.erase();
-    i++;
-
-    for (; i<(int)line.size(); i++)//wpisanie (i;;)tu i powoduje plucie warningiem poniewać to nic nie zmienia, ale pokazuje że i jest używane dalej od tej samej wartości
->>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
     {
         if (line[i]>'/' && line[i]<':')// '/' 1 poniżej 0, ':' 1 powyżej 9 (ASCII)
             help.push_back(line[i]);
@@ -72,28 +64,11 @@ plansza::plansza(std::string filename)//wczytuje z pliku planszę
 }//plansza::plansza(ifstream file)
 
 // ******** metody ********
-<<<<<<< HEAD
 void plansza::clearways() // przywraca mapce stan początkowy, zeruje odległości od robota
-=======
-void plansza::clearways()
 {
     for (int i = 0; i < this->ymax; i++) //przejście po wierszach (oś y)
     {
         for (int j = 0; j < this->xmax; j++) // przejście po kolumnach (oś x)
-        {
-            this->mapa[j][i].color = WHITE;
-            this->mapa[j][i].way.clear();
-        }
-    }
-}
-
-void plansza::show() const
->>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
-{
-    for (int i = 0; i < this->ymax; i++) //przejście po wierszach (oś y)
-    {
-        for (int j = 0; j < this->xmax; j++) // przejście po kolumnach (oś x)
-<<<<<<< HEAD
         {
             this->mapa[j][i].color = WHITE;
             this->mapa[j][i].way.clear();
@@ -106,8 +81,6 @@ void plansza::show() const // zgodnie z nazwą pokazuje mapkę
     for (int i = 0; i < this->ymax; i++) //przejście po wierszach (oś y)
     {
         for (int j = 0; j < this->xmax; j++) // przejście po kolumnach (oś x)
-=======
->>>>>>> 11f556ddb0808920e017e4494a096ec86ba7a41a
         {
             std::cout << mapa[j][i].type;
         }
@@ -246,11 +219,11 @@ plansza plansza::operator* (const plansza &b) const
         {
             if (this->mapa[j][i].type==b.mapa[j][i].type)
             {
-                nowa.mapa[j][i].type=this->mapa[j][i].type;    //jak są identyczne zostaje to samo
+                nowa.mapa[j][i].type=this->mapa[j][i].type; //jak są identyczne zostaje to samo
             }
             else
             {
-                nowa.mapa[j][i].type='.';    //jak nie to ścieżka
+                nowa.mapa[j][i].type='.'; //jak nie to ścieżka
             }
             if (this->mapa[j][i].type==' '||b.mapa[j][i].type==' ')//jak było puste to staje się ścianą. Po pustym się nie chodzi
             {
