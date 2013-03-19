@@ -28,10 +28,10 @@ int main()
     string filename2;
 
     cout << "podaj nazwę mapki:"<<std::endl;
-    cin >> filename;
+    cin >> filename;//pierwsza mapka
 
     cout << "podaj nazwę mapki:"<<std::endl;
-    cin >> filename2;
+    cin >> filename2;// druga mapka
 
     plansza mapka (filename);
     plansza mapka2 (filename2);

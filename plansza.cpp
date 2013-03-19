@@ -6,7 +6,7 @@
 #include <string>
 
 // ******** konstruktory ********
-plansza::plansza()
+plansza::plansza()//konstruktor ustawiający wszystko na wartości bazowe
 {
     xmax=0;
     ymax=0;
@@ -20,7 +20,7 @@ plansza::plansza()
     }
 }
 
-plansza::plansza(std::string filename)
+plansza::plansza(std::string filename)//wczytuje z pliku planszę
 {
     std::ifstream file;
     file.open(filename.c_str(),std::ifstream::in);
@@ -36,11 +36,11 @@ plansza::plansza(std::string filename)
             break;
     }
     std::string::size_type sz;   // alias of size_t
-    this->xmax = std::stoi (help,&sz,10);
+    this->xmax = std::stoi (help,&sz,10);//string to integer
     help.erase();
-    i++;
+    i++;//przeskok na kolejną cyfrę zgodnie z ustalonym formatem pliku mapki.
 
-    for (; i<(int)line.size(); i++)//wpisanie (i;;)tu i powoduje plucie warningiem poniewać to nic nie zmienia, ale pokazuje że i jest używane dalej od tej samej wartości
+    for (; i<(int)line.size(); i++)
     {
         if (line[i]>'/' && line[i]<':')// '/' 1 poniżej 0, ':' 1 powyżej 9 (ASCII)
             help.push_back(line[i]);
@@ -64,7 +64,7 @@ plansza::plansza(std::string filename)
 }//plansza::plansza(ifstream file)
 
 // ******** metody ********
-void plansza::clearways()
+void plansza::clearways() // przywraca mapce stan początkowy, zeruje odległości od robota
 {
     for (int i = 0; i < this->ymax; i++) //przejście po wierszach (oś y)
     {
