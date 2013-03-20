@@ -26,6 +26,7 @@ private:
     plansza* mapka;// wskaźnik do świata, w którym aktualnie porusza się robot
     void move(int, int);
 
+
 public:
     //******** Konstruktor ********
     robot(plansza* mapa);
