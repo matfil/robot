@@ -41,7 +41,7 @@ bool robot::istargetset() const
     return target[2]==1?true:false;
 }
 
-void robot::position() const
+void robot::rposition() const
 {
     std::cout << pos.x << " " << pos.y <<std::endl;
 }

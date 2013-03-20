@@ -8,15 +8,17 @@
 
 enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy pos w klasie robot
 
-class position //klasa tylko po to by uniknąć typedefa
-{
-    int x;
-    int y;
-};
-
 class robot
 {
 private:
+
+    class position //klasa tylko po to by uniknąć typedefa
+    {
+    public:
+        int x;
+        int y;
+    };
+
     queue kolejka;
     position pos;//aktualna pozycja robota
     int target[3];//pozycja celu i to czy został ustawiony
@@ -30,7 +32,7 @@ public:
 
     //******** Metody ********
     void ruch (int c);
-    void position() const;
+    void rposition() const;
     void flag();//zmienia fl na 1 by robot zchodząc ze swjego pola zostawił znak 'x'
     void startfinder();
     std::string waytodest() const;

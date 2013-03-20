@@ -91,7 +91,7 @@ int main()
         }
 
         testowy.ruch(a);
-        testowy.position();
+        testowy.rposition();
         nowa2.show();
 
         if (a == 'g')
