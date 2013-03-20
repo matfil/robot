@@ -9,8 +9,8 @@
 robot::robot(plansza* mapa)
 {
     this->target[2]=0;
-    pos[X]=0;
-    pos[Y]=0;
+    pos.x=0;
+    pos.y=0;
     fl=0;
     bool isset;
     isset = 0;
@@ -23,8 +23,8 @@ robot::robot(plansza* mapa)
             if (mapka->getpoletype(i,j) == '.')
             {
                 mapka->changepoletype(i,j,'r');
-                pos[X]=i;
-                pos[Y]=j;
+                pos.x=i;
+                pos.y=j;
                 isset = true;
                 break;
             }
@@ -43,7 +43,27 @@ bool robot::istargetset() const
 
 void robot::position() const
 {
-    std::cout << pos[X] << " " << pos[Y] <<std::endl;
+    std::cout << pos.x << " " << pos.y <<std::endl;
+}
+
+void robot::move(int x, int y)
+{
+    if (mapka->getpoletype(pos.x +x,pos.y +y) != '*')
+        {
+            if (mapka->getpoletype(pos.x +x,pos.y +y) == 'x')
+            {
+                mapka->changepoletype(pos.x,pos.y,'.');
+                fl=1;
+            }
+            else
+            {
+                mapka->changepoletype(pos.x,pos.y,(fl?'x':'.'));
+                fl=0;
+            }
+            mapka->changepoletype(pos.x +x,pos.y +y,'r');
+            pos.x += x;
+            pos.y += y;
+        }
 }
 
 void robot::ruch (int c)
@@ -63,79 +83,22 @@ void robot::ruch (int c)
     {
 
     case ARROW_UP:
-        if (mapka->getpoletype(pos[X],pos[Y]-1) != '*')
-        {
-            if (mapka->getpoletype(pos[X],pos[Y]-1) == 'x')
-            {
-                mapka->changepoletype(pos[X],pos[Y],'.');
-                fl=1;
-            }
-            else
-            {
-                mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
-                fl=0;
-            }
-            mapka->changepoletype(pos[X],pos[Y]-1,'r');
-            pos[Y]--;
-        }
+        this->move(0,-1);
 
         break;//ARROW_UP
 
     case ARROW_DOWN:
-        if (mapka->getpoletype(pos[X],pos[Y]+1)!='*')
-        {
-            if (mapka->getpoletype(pos[X],pos[Y]+1)=='x')
-            {
-                mapka->changepoletype(pos[X],pos[Y],'.');
-                fl=1;
-            }
-            else
-            {
-                mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
-                fl=0;
-
-            }
-            mapka->changepoletype(pos[X],pos[Y]+1,'r');
-            pos[Y]++;
-        }
+        this->move(0,1);
 
         break;//ARROW_DOWN
 
     case ARROW_RIGHT:
-        if (mapka->getpoletype(pos[X]+1,pos[Y])!='*')
-        {
-            if (mapka->getpoletype(pos[X]+1,pos[Y])=='x')
-            {
-                mapka->changepoletype(pos[X],pos[Y],'.');
-                fl=1;
-            }
-            else
-            {
-                mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
-                fl=0;
-            }
-            mapka->changepoletype(pos[X]+1,pos[Y],'r');
-            pos[X]++;
-        }
+        this->move(1,0);
 
         break;//ARROW_RIGHT
 
     case ARROW_LEFT:
-        if (mapka->getpoletype(pos[X]-1,pos[Y])!='*')
-        {
-            if (mapka->getpoletype(pos[X]-1,pos[Y])=='x')
-            {
-                mapka->changepoletype(pos[X],pos[Y],'.');
-                fl=1;
-            }
-            else
-            {
-                mapka->changepoletype(pos[X],pos[Y],(fl?'x':'.'));
-                fl=0;
-            }
-            mapka->changepoletype(pos[X]-1,pos[Y],'r');
-            pos[X]--;
-        }
+        this->move(-1,0);
 
         break; //ARROW_LEFT
 
@@ -146,8 +109,8 @@ void robot::flag ()
 {
     if (this->target[2]==0)
     {
-        target[X]=pos[X];
-        target[Y]=pos[Y];
+        target[X]=pos.x;
+        target[Y]=pos.y;
         target[2]=1;
         fl=1;
     }
@@ -160,9 +123,9 @@ void robot::startfinder()
     std::string way;
     point current;
 
-    mapka->setpolecolor(pos[X],pos[Y],GRAY);
-    mapka->setpoleway(pos[X],pos[Y],way);
-    kolejka.push(pos[X],pos[Y],way);
+    mapka->setpolecolor(pos.x,pos.y,GRAY);
+    mapka->setpoleway(pos.x,pos.y,way);
+    kolejka.push(pos.x,pos.y,way);
 
     while (kolejka.isempty() != true)
     {

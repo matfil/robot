@@ -8,14 +8,21 @@
 
 enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy pos w klasie robot
 
+class position //klasa tylko po to by uniknąć typedefa
+{
+    int x;
+    int y;
+};
+
 class robot
 {
 private:
     queue kolejka;
-    int pos[2];//aktualna pozycja robota
+    position pos;//aktualna pozycja robota
     int target[3];//pozycja celu i to czy został ustawiony
     bool fl;//czy robot stoi na fladze?
     plansza* mapka;// wskaźnik do świata, w którym aktualnie porusza się robot
+    void move(int, int);
 
 public:
     //******** Konstruktor ********
