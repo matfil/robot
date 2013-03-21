@@ -20,14 +20,13 @@ using namespace std;
 void delay(int seconds);
 
 int main()
-
-
 {
 
     cout << CLEARSCREEN;
 
     string filename;
     string filename2;
+    char dm;
 
     cout << "podaj nazwę mapki:"<<std::endl;
     cin >> filename;//pierwsza mapka
@@ -35,6 +34,8 @@ int main()
     cout << "podaj nazwę mapki:"<<std::endl;
     cin >> filename2;// druga mapka
 
+    cout << "dodać? mnożyć? (d/m)"<<std::endl;
+    cin >> dm;
 
     plansza mapka (filename);
     plansza mapka2 (filename2);
@@ -42,8 +43,13 @@ int main()
     mapka.show();
 
     plansza nowa;
-    nowa = mapka + mapka2;
-    cout<<"po dodaniu"<<endl;
+
+    if (dm == 'd')
+        nowa = mapka + mapka2;
+
+    if (dm == 'm')
+        nowa = mapka * mapka2;
+
     nowa.show();
 
 // mnożenie
@@ -80,7 +86,7 @@ int main()
 
     while (a!='+')
     {
-        a=cin.get();
+        a=cin.get();//literka sterująca
 
 
         cout<<CLEARSCREEN;
@@ -94,6 +100,13 @@ int main()
         testowy.rposition();
         nowa2.show();
 
+        if ((a=='w'||a=='s'||a=='a'||a=='d')&&testowy.istargetset()&&(int)(testowy.waytodest()).size()>0)
+        {
+            testowy.clear();
+        }
+
+        cout << testowy.waytodest() << endl;
+
         if (a == 'g')
         {
             for (int iter = 0; iter < (int)(testowy.waytodest()).size(); iter++)
@@ -103,6 +116,7 @@ int main()
                 cout<<CLEARSCREEN;
                 nowa2.show();
             }
+            testowy.notarget();
         }
     }
 

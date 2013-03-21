@@ -8,7 +8,7 @@
 
 robot::robot(plansza* mapa)
 {
-    this->target[2]=0;
+    this->target[2]=false;
     pos.x=0;
     pos.y=0;
     fl=0;
@@ -46,8 +46,17 @@ void robot::rposition() const
     std::cout << pos.x << " " << pos.y <<std::endl;
 }
 
+void robot::notarget()
+{
+    fl=false;
+    target[X]=0;
+    target[Y]=0;
+    target[2]=0;
+}
+
 void robot::move(int x, int y)
 {
+
     if (mapka->getpoletype(pos.x +x,pos.y +y) != '*')
         {
             if (mapka->getpoletype(pos.x +x,pos.y +y) == 'x')
@@ -64,6 +73,11 @@ void robot::move(int x, int y)
             pos.x += x;
             pos.y += y;
         }
+}
+
+void robot::clear()
+{
+    mapka->clearways();
 }
 
 void robot::ruch (int c)

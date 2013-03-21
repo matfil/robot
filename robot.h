@@ -6,7 +6,7 @@
 
 // klasa robot
 
-enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy pos w klasie robot
+enum os {X = 0, Y};//by wstawiać literki odwołując się do tablicy target w klasie robot
 
 class robot
 {
@@ -32,10 +32,12 @@ public:
     robot(plansza* mapa);
 
     //******** Metody ********
+    void clear();
     void ruch (int c);
     void rposition() const;
     void flag();//zmienia fl na 1 by robot zchodząc ze swjego pola zostawił znak 'x'
     void startfinder();
+    void notarget();
     std::string waytodest() const;
     bool istargetset() const;
 };

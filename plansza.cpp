@@ -101,7 +101,7 @@ int plansza::height() const
 
 char plansza::getpoletype(int x, int y) const
 {
-    if(x<0||y<0)
+    if( x<0 || y<0 )
     {
         return '*';
     }
